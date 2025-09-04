@@ -1,11 +1,12 @@
-import AppRoutes from '@/router';
-import Navbar from '@/components/layout/Navbar';
+import { ThemeProvider } from "@/components/themeProvider";
+import Home from "./Home";
 
-export default function App() {
+function App() {
   return (
-    <>
-      <Navbar />
-      <AppRoutes />
-    </>
+    <ThemeProvider defaultTheme="light" storageKey="vite-ui-theme">
+      <Home />
+    </ThemeProvider>
   );
 }
+
+export default App;

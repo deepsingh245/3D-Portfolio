@@ -1,15 +1,17 @@
 import { Dock, DockIcon } from "@/components/magicui/dock";
-import { Search, Settings } from "lucide-react";
-import { ThemeToggle } from "./components/ThemeToggle";
+import { HomeIcon, Search, Settings } from "lucide-react";
 import { InteractiveGridPattern } from "./components/magicui/interactive-grid-pattern";
+import { AnimatedThemeToggler } from "@/components/magicui/animated-theme-toggler";
 import { cn } from "./lib/utils";
 
 const Home = () => {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-white dark:bg-gray-950">
-      <ThemeToggle />
+    <>
+      <div className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground transition-all duration-300">
+        <AnimatedThemeToggler className="fixed top-0 right-0 m-4" />
+      </div>
       <Dock
-        className="backdrop-blur-md bg-white/30 dark:bg-black/30 shadow-lg"
+        className="backdrop-blur-md bg-white/30 dark:bg-black/30 shadow-lg fixed bottom-0 left-0 right-0 mb-2"
         direction="middle"
         iconDistance={100}
         iconSize={50}
@@ -20,16 +22,11 @@ const Home = () => {
         <DockIcon>
           <Search />
         </DockIcon>
+        <DockIcon>
+          <HomeIcon />
+        </DockIcon>
       </Dock>
-      <div className="relative flex h-[500px] w-full flex-col items-center justify-center overflow-hidden rounded-lg bg-background">
-        <InteractiveGridPattern
-          className={cn(
-            "[mask-image:radial-gradient(400px_circle_at_center,white,transparent)]",
-            "inset-x-0 inset-y-[-30%] h-[200%] skew-y-12"
-          )}
-        />
-      </div>
-    </div>
+    </>
   );
 };
 

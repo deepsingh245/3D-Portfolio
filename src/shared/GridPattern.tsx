@@ -1,5 +1,5 @@
 import React from "react";
-import { InteractiveGridPattern } from "./magicui/interactive-grid-pattern";
+import { InteractiveGridPattern } from "../components/magicui/interactive-grid-pattern";
 import { cn } from "@/lib/utils";
 
 const GridPattern = () => {

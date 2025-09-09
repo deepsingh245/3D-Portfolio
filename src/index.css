@@ -41,6 +41,20 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+  --animate-meteor: meteor 5s linear infinite;
+  @keyframes meteor {
+  0% {
+    transform: rotate(var(--angle)) translateX(0);
+    opacity: 1;
+    }
+  70% {
+    opacity: 1;
+    }
+  100% {
+    transform: rotate(var(--angle)) translateX(-500px);
+    opacity: 0;
+    }
+  }
 }
 
 :root {
@@ -81,7 +95,7 @@
 
 .dark {
   /* Dark theme colors using standard hex values */
-  --background: #0f172a;
+  --background: #010308;
   --foreground: #f8fafc;
   --card: #1e293b;
   --card-foreground: #f8fafc;
@@ -128,10 +142,29 @@
   }
   html {
     height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: auto;
   }
 }
 
 ::view-transition-old(root), ::view-transition-new(root) {
     animation: none;
     mix-blend-mode: normal;
+}
+
+.michroma{
+  font-family: 'Michroma', sans-serif;
+}
+.michroma,
+.michroma * {
+  font-family: 'Michroma', sans-serif !important;
+}
+
+.inter{
+  font-family: 'Inter', sans-serif;
+}
+.inter,
+.inter * {
+  font-family: 'Inter', sans-serif !important;
 }

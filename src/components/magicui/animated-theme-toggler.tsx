@@ -1,16 +1,16 @@
 "use client";
 
-import { Moon, SunDim } from "lucide-react";
-import { useState, useRef, useEffect } from "react";
-import { flushSync } from "react-dom";
 import { cn } from "@/lib/utils";
+import { Moon, SunDim } from "lucide-react";
+import { useEffect, useRef, useState } from "react";
+import { flushSync } from "react-dom";
 
 type props = {
   className?: string;
 };
 
 export const AnimatedThemeToggler = ({ className }: props) => {
-  const [isDarkMode, setIsDarkMode] = useState<boolean>(false);
+  const [isDarkMode, setIsDarkMode] = useState<boolean>(true);
   const buttonRef = useRef<HTMLButtonElement | null>(null);
 
   // Initialize theme state from document
@@ -68,7 +68,7 @@ export const AnimatedThemeToggler = ({ className }: props) => {
       ref={buttonRef}
       onClick={changeTheme}
       className={cn(
-        "p-3 rounded-lg bg-card border border-border hover:bg-accent transition-all duration-300 shadow-lg hover:shadow-xl",
+        "p-3 rounded-lg border border-border hover:bg-accent transition-all duration-300 shadow-lg hover:shadow-xl",
         "flex items-center justify-center cursor-pointer",
         className
       )}

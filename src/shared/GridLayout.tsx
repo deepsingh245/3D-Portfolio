@@ -1,12 +1,14 @@
 import { BentoCard, BentoGrid } from "@/components/magicui/bento-grid";
 
-interface GridLayoutProps {
+export interface GridLayoutProps {
   features: Array<{
-    Icon: React.ComponentType<any>;
+    Icon: any;
     name: string;
     description: string;
-    href: string;
-    cta: string;
+    tech_stack: string[];
+    showButtonText: boolean;
+    liveHref?: string;
+    sourceHref?: string;
     background: React.ReactNode;
     className: string;
   }>;
@@ -14,7 +16,7 @@ interface GridLayoutProps {
 
 const GridLayout = ({ features }: GridLayoutProps) => {
   return (
-    <BentoGrid className="lg:grid-rows-3">
+    <BentoGrid className="lg:grid-rows-2">
       {features.map((feature) => (
         <BentoCard key={feature.name} {...feature} />
       ))}

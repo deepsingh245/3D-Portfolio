@@ -1,93 +1,137 @@
+import NPMIcon from "@/assets/icons/NPMIcon";
+import attendifyDashBoard from "@/assets/images/attendify-dashboard.png";
+import dashBoard from "@/assets/images/billety-dashboard.png";
+import caSimarjit from "@/assets/images/ca-simarjit.png";
+import npmImage from "@/assets/images/npm-image.png";
+import welcomeEnter from "@/assets/images/welcome-enterprise.png";
+import { Marquee } from "@/components/magicui/marquee";
 import { Card } from "@/components/ui/card";
-import GridLayout from "@/shared/gridLayout";
-import {
-  BellIcon,
-  CalendarIcon,
-  FileTextIcon,
-  GlobeIcon,
-  InputIcon,
-} from "@radix-ui/react-icons";
+import { cn } from "@/lib/utils";
+import GridLayout, { GridLayoutProps } from "@/shared/GridLayout";
+import { FileTextIcon, GlobeIcon } from "@radix-ui/react-icons";
+import { ScanFaceIcon } from "lucide-react";
 
-const features = [
+const features: GridLayoutProps["features"] = [
   {
     Icon: FileTextIcon,
-    name: "3D Portfolio",
+    name: "Billety",
     description:
-      "Interactive 3D portfolio built with React, Three.js, and modern web technologies.",
-    href: "https://github.com/deepsingh245/3D-Portfolio",
-    cta: "View on GitHub",
+      "Billety is a smart and easy-to-use billing software that helps businesses create invoices, track payments, and manage customers effortlessly across desktop and mobile.",
+    tech_stack: ["React", "Electron", "Capacitor", "Firebase", "TypeScript"],
+    sourceHref: "https://github.com/deepsingh245/billety",
+    showButtonText: true,
     background: (
       <img
-        src="/projects/3d-portfolio.jpg"
+        src={dashBoard}
         alt="3D Portfolio"
-        className="absolute -right-20 -top-20 opacity-60"
+        className="absolute  opacity-60 [mask-image:linear-gradient(to_top,transparent_5%,#000_100%)]"
       />
     ),
-    className: "lg:row-start-1 lg:row-end-4 lg:col-start-2 lg:col-end-3",
+    className: "lg:row-start-4 lg:row-end-3 lg:col-start-2 lg:col-end-4",
   },
   {
-    Icon: InputIcon,
-    name: "E-Commerce Platform",
+    Icon: NPMIcon,
+    name: "Client Trace - NPM",
     description:
-      "Full-stack e-commerce solution with payment integration and admin dashboard.",
-    href: "https://github.com/deepsingh245/ecommerce-platform",
-    cta: "View on GitHub",
+      "NPM package for tracking clients IP addresses and user agents.",
+    tech_stack: ["Javascript"],
+    liveHref: "https://npmjs.com/package/client-trace",
+    showButtonText: true,
     background: (
-      <img
-        src="/projects/ecommerce.jpg"
-        alt="E-Commerce Platform"
-        className="absolute -right-20 -top-20 opacity-60"
-      />
+      <Marquee
+        pauseOnHover
+        className="absolute [--duration:20s] [mask-image:linear-gradient(to_top,transparent_40%,#000_100%)] "
+      >
+        {[1, 2, 3, 4].map((f, idx) => (
+          <figure
+            key={idx}
+            className={cn(
+              "relative w-62 h-64 cursor-pointer overflow-hidden rounded-xl border",
+              "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.05]",
+              "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+              "transform-gpu blur-[1px] transition-all duration-300 ease-out hover:blur-none"
+            )}
+          >
+            <img
+              src={npmImage}
+              alt="NPM"
+              className=" h-full w-auto object-fill transition-all duration-500 ease-in-out dark:opacity-60 hover:opacity-100 hover:blur-none"
+            />
+          </figure>
+        ))}
+      </Marquee>
     ),
-    className: "lg:col-start-1 lg:col-end-2 lg:row-start-1 lg:row-end-3",
+    className: "lg:col-start-3 lg:col-end-1 lg:row-start-1 lg:row-end-3",
   },
   {
     Icon: GlobeIcon,
-    name: "Task Management App",
+    name: "Welcome Enterprise",
     description:
-      "Real-time collaborative task management with drag-and-drop functionality.",
-    href: "https://github.com/deepsingh245/task-manager",
-    cta: "View on GitHub",
+      "Welcome Enterprise is a leading manufacturer of high-quality machines designed to simplify and enhance your culinary experience.",
+    tech_stack: ["HTML", "CSS", "JavaScript", "TailwindCSS", "Firebase"],
+    liveHref: "https://welcomeenterprise.netlify.app/",
+    sourceHref: "https://github.com/deepsingh245/welcome-enterprise",
+    showButtonText: false,
     background: (
       <img
-        src="/projects/task-manager.jpg"
-        alt="Task Management App"
-        className="absolute -right-20 -top-20 opacity-60"
+        src={welcomeEnter}
+        alt="Welcome Enterprise"
+        className="absolute [--duration:20s] [mask-image:linear-gradient(to_top,transparent_5%,#000_100%)] "
       />
     ),
     className: "lg:col-start-1 lg:col-end-2 lg:row-start-3 lg:row-end-4",
   },
   {
-    Icon: CalendarIcon,
-    name: "Weather Dashboard",
+    Icon: GlobeIcon,
+    name: "CA Simarjit",
     description:
-      "Beautiful weather dashboard with location-based forecasts and interactive maps.",
-    href: "https://github.com/deepsingh245/weather-dashboard",
-    cta: "View on GitHub",
+      "Beautiful CA Simarjit with location-based forecasts and interactive maps.",
+    tech_stack: ["React", "Three.js", "Next.js", "TypeScript", "Tailwind"],
+    liveHref: "https://casimarjit.netlify.app/",
+    showButtonText: false,
     background: (
       <img
-        src="/projects/weather-dashboard.jpg"
-        alt="Weather Dashboard"
-        className="absolute -right-20 -top-20 opacity-60"
+        src={caSimarjit}
+        alt="CA Simarjit"
+        className="absolute [--duration:20s] [mask-image:linear-gradient(to_top,transparent_5%,#000_100%)] "
       />
     ),
-    className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-2",
+    className: "lg:col-start-3 lg:col-end-3 lg:row-start-1 lg:row-end-3",
   },
   {
-    Icon: BellIcon,
-    name: "Social Media Analytics",
+    Icon: ScanFaceIcon,
+    name: "Attendify: Smart Attendance System",
     description:
-      "Analytics dashboard for tracking social media engagement and performance metrics.",
-    href: "https://github.com/deepsingh245/social-analytics",
-    cta: "View on GitHub",
+      "A smart attendance system using face recognition to automatically identify students and mark attendance.",
+    tech_stack: ["React", "Face Api", "FireBase", "NodeJS"],
+    sourceHref: "https://github.com/deepsingh245/attendify",
+    showButtonText: true,
     background: (
-      <img
-        src="/projects/social-analytics.jpg"
-        alt="Social Media Analytics"
-        className="absolute -right-20 -top-20 opacity-60"
-      />
+      <Marquee
+        pauseOnHover
+        reverse
+        className="absolute [--duration:20s] [mask-image:linear-gradient(to_top,transparent_5%,#000_100%)] "
+      >
+        {[attendifyDashBoard, attendifyDashBoard].map((f, idx) => (
+          <figure
+            key={idx}
+            className={cn(
+              "relative w-100 h-62 cursor-pointer overflow-hidden rounded-xl border ",
+              "border-gray-950/[.1] bg-gray-950/[.01] hover:bg-gray-950/[.01]",
+              "dark:border-gray-50/[.1] dark:bg-gray-50/[.10] dark:hover:bg-gray-50/[.15]",
+              "transform-gpu blur-[1px] transition-all duration-300 ease-out hover:blur-none"
+            )}
+          >
+            <img
+              src={f}
+              alt="Attendify"
+              className=" h-full w-auto object-fill transition-all duration-500 ease-in-out dark:opacity-60  hover:opacity-100 hover:blur-none"
+            />
+          </figure>
+        ))}
+      </Marquee>
     ),
-    className: "lg:col-start-3 lg:col-end-3 lg:row-start-2 lg:row-end-4",
+    className: "lg:col-start-1 lg:col-end-4 lg:row-start-4 lg:row-end-4",
   },
 ];
 

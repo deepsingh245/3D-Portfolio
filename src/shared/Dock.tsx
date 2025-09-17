@@ -1,8 +1,11 @@
 "use client";
 
-import React from "react";
 import { HomeIcon, MailIcon, PencilIcon } from "lucide-react";
+import React from "react";
 
+import GitHubIcon from "@/assets/icons/GithubIcon";
+import LinkedInIcon from "@/assets/icons/LinkedInIcon";
+import { Dock, DockIcon } from "@/components/magicui/dock";
 import { buttonVariants } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import {
@@ -12,9 +15,6 @@ import {
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 import { cn } from "@/lib/utils";
-import { Dock, DockIcon } from "@/components/magicui/dock";
-import GitHubIcon from "@/assets/icons/GithubIcon";
-import LinkedInIcon from "@/assets/icons/LinkedInIcon";
 
 export type IconProps = React.SVGProps<SVGSVGElement>;
 

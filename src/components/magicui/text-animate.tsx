@@ -2,7 +2,7 @@
 
 import { cn } from "@/lib/utils";
 import { AnimatePresence, motion, MotionProps, Variants } from "motion/react";
-import { ElementType, memo } from "react";
+import React, { Children, ElementType, memo } from "react";
 
 type AnimationType = "text" | "word" | "character" | "line";
 type AnimationVariant =
@@ -19,9 +19,9 @@ type AnimationVariant =
 
 interface TextAnimateProps extends MotionProps {
   /**
-   * The text content to animate
+   * Content to animate. Accepts plain text or arbitrary React children.
    */
-  children: string;
+  children: React.ReactNode;
   /**
    * The class name to be applied to the component
    */
@@ -47,7 +47,8 @@ interface TextAnimateProps extends MotionProps {
    */
   as?: ElementType;
   /**
-   * How to split the text ("text", "word", "character")
+   * How to split the text when children is a string ("text", "word", "character", "line").
+   * If children are React elements, each direct child is treated as one segment.
    */
   by?: AnimationType;
   /**
@@ -318,21 +319,29 @@ const TextAnimateBase = ({
 }: TextAnimateProps) => {
   const MotionComponent = motion.create(Component);
 
-  let segments: string[] = [];
-  switch (by) {
-    case "word":
-      segments = children.split(/(\s+)/);
-      break;
-    case "character":
-      segments = children.split("");
-      break;
-    case "line":
-      segments = children.split("\n");
-      break;
-    case "text":
-    default:
-      segments = [children];
-      break;
+  // Build segments: either split string by "by", or treat React children as segments
+  const isStringChild =
+    typeof children === "string" || typeof children === "number";
+  let segments: Array<string | React.ReactNode> = [];
+  if (isStringChild) {
+    const text = String(children);
+    switch (by) {
+      case "word":
+        segments = text.split(/(\s+)/);
+        break;
+      case "character":
+        segments = text.split("");
+        break;
+      case "line":
+        segments = text.split("\n");
+        break;
+      case "text":
+      default:
+        segments = [text];
+        break;
+    }
+  } else {
+    segments = Children.toArray(children);
   }
 
   const finalVariants = variants
@@ -358,27 +367,27 @@ const TextAnimateBase = ({
         item: variants,
       }
     : animation
-      ? {
-          container: {
-            ...defaultItemAnimationVariants[animation].container,
-            show: {
-              ...defaultItemAnimationVariants[animation].container.show,
-              transition: {
-                delayChildren: delay,
-                staggerChildren: duration / segments.length,
-              },
-            },
-            exit: {
-              ...defaultItemAnimationVariants[animation].container.exit,
-              transition: {
-                staggerChildren: duration / segments.length,
-                staggerDirection: -1,
-              },
+    ? {
+        container: {
+          ...defaultItemAnimationVariants[animation].container,
+          show: {
+            ...defaultItemAnimationVariants[animation].container.show,
+            transition: {
+              delayChildren: delay,
+              staggerChildren: duration / segments.length,
             },
           },
-          item: defaultItemAnimationVariants[animation].item,
-        }
-      : { container: defaultContainerVariants, item: defaultItemVariants };
+          exit: {
+            ...defaultItemAnimationVariants[animation].container.exit,
+            transition: {
+              staggerChildren: duration / segments.length,
+              staggerDirection: -1,
+            },
+          },
+        },
+        item: defaultItemAnimationVariants[animation].item,
+      }
+    : { container: defaultContainerVariants, item: defaultItemVariants };
 
   return (
     <AnimatePresence mode="popLayout">
@@ -390,10 +399,12 @@ const TextAnimateBase = ({
         exit="exit"
         className={cn("whitespace-pre-wrap", className)}
         viewport={{ once }}
-        aria-label={accessible ? children : undefined}
+        aria-label={accessible && isStringChild ? String(children) : undefined}
         {...props}
       >
-        {accessible && <span className="sr-only">{children}</span>}
+        {accessible && isStringChild && (
+          <span className="sr-only">{String(children)}</span>
+        )}
         {segments.map((segment, i) => (
           <motion.span
             key={`${by}-${segment}-${i}`}
@@ -402,7 +413,7 @@ const TextAnimateBase = ({
             className={cn(
               by === "line" ? "block" : "inline-block whitespace-pre",
               by === "character" && "",
-              segmentClassName,
+              segmentClassName
             )}
             aria-hidden={accessible ? true : undefined}
           >

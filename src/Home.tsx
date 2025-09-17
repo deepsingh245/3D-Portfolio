@@ -1,6 +1,7 @@
 import { AnimatedThemeToggler } from "@/components/magicui/animated-theme-toggler";
 import { Meteors } from "./components/magicui/meteors";
 import About from "./segments/About";
+import Contact from "./segments/Contact";
 import Header from "./segments/Header";
 import Projects from "./segments/Projects";
 import Skills from "./segments/Skills";
@@ -16,6 +17,7 @@ const Home = () => {
         <About />
         <Skills />
         <Projects />
+        <Contact />
       </div>
       <DockLayout />
     </div>

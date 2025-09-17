@@ -1,11 +1,14 @@
-import AppRoutes from '@/router';
-import Navbar from '@/components/layout/Navbar';
+import Home from "./Home";
 
-export default function App() {
+function App() {
   return (
-    <>
-      <Navbar />
-      <AppRoutes />
-    </>
+    <div
+    // className="cursor-none"
+    >
+      {/* <SmoothCursor /> */}
+      <Home />
+    </div>
   );
 }
+
+export default App;

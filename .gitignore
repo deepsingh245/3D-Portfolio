@@ -1,1 +1,30 @@
 node_modules
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Production build
+dist/
+build/
+.cache/
+
+# Local Netlify build folder
+.netlify/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+
+# Mac / Windows system files
+.DS_Store
+Thumbs.db
+
+# Optional: VSCode settings
+.vscode/
+
+# Ignore function dependencies, but keep source
+netlify/functions/*/node_modules/

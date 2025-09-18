@@ -5,14 +5,20 @@ import fetch from "node-fetch";
 // EMAILJS_SERVICE_ID, EMAILJS_TEMPLATE_ID, EMAILJS_PUBLIC_KEY
 
 export const handler: Handler = async (event) => {
-  if (event.httpMethod !== "POST") {
-    return { statusCode: 405, body: "Method Not Allowed" };
-  }
-
   const headers = {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Methods": "POST, OPTIONS",
   } as const;
+
+  // Handle CORS preflight
+  if (event.httpMethod === "OPTIONS") {
+    return { statusCode: 204, headers, body: "" };
+  }
+
+  if (event.httpMethod !== "POST") {
+    return { statusCode: 405, headers, body: "Method Not Allowed" };
+  }
 
   try {
     const payload = JSON.parse(event.body || "{}");
@@ -28,6 +34,7 @@ export const handler: Handler = async (event) => {
     const serviceId = process.env.EMAILJS_SERVICE_ID;
     const templateId = process.env.EMAILJS_TEMPLATE_ID;
     const publicKey = process.env.EMAILJS_PUBLIC_KEY;
+    const accessToken = process.env.EMAILJS_PRIVATE_KEY;
     if (!serviceId || !templateId || !publicKey) {
       return {
         statusCode: 500,
@@ -43,12 +50,26 @@ export const handler: Handler = async (event) => {
         service_id: serviceId,
         template_id: templateId,
         user_id: publicKey,
-        template_params: { name, email, message },
+        accessToken: accessToken,
+        // Send with multiple common param keys to satisfy most templates
+        template_params: {
+          name,
+          email,
+          message,
+          from_name: name,
+          from_email: email,
+          reply_to: email,
+        },
       }),
     });
 
     if (!res.ok) {
       const text = await res.text();
+      console.error("EmailJS send failed", {
+        status: res.status,
+        statusText: res.statusText,
+        response: text,
+      });
       return {
         statusCode: 502,
         headers,
@@ -58,8 +79,10 @@ export const handler: Handler = async (event) => {
 
     return { statusCode: 200, headers, body: JSON.stringify({ ok: true }) };
   } catch (e: any) {
+    console.error("Contact function error", e);
     return {
       statusCode: 500,
+      headers,
       body: JSON.stringify({ error: e?.message || "Unknown error" }),
     };
   }

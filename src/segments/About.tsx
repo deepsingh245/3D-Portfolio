@@ -20,8 +20,8 @@ const About = () => {
         Node.js, and databases powering the backend.
       </CardDescription>
       <CardDescription>
-        🎨 I enjoy bridging design and code, often sketching in Figma before
-        bringing it to life in the browser.
+        🎨 I enjoy bridging design and code, often sketching before bringing it
+        to life in the browser.
       </CardDescription>
       <CardDescription>
         🚀 Always curious, always building — from dynamic UIs to full-stack

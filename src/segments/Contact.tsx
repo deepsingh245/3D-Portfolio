@@ -39,7 +39,7 @@ const Contact = () => {
       </div>
       <div className="p-6 absolute w-full top-0 left-0 right-0 h-full flex flex-col justify-between items-center">
         <h1 className="font-extrabold text-xl mb-4">Contact</h1>
-        <form onSubmit={onSubmit} className="grid gap-4 w-xl">
+        <form onSubmit={onSubmit} className="grid gap-4 w-full lg:w-xl">
           <Input
             placeholder="Your name"
             value={name}

@@ -11,7 +11,8 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "server": "netlify dev"
   },
   "dependencies": {
     "@netlify/functions": "^4.2.5",
